@@ -37,7 +37,7 @@ in certain scenarios to enhance performance of the application.
 ---
 
 # Usage
-1. First, initialize scribo by invoking any of the below init() functions: 
+* First, initialize scribo by invoking any of the below init() functions: 
 
 ```java
 	DebugHelper.init(Context)
@@ -63,7 +63,7 @@ in certain scenarios to enhance performance of the application.
 	// File contents are NOT reset everytime the application is invoked.
 ```
 
-2. Override the log mask supported by scribo with a custom log mask. (This is optional) 
+* Override the log mask supported by scribo with a custom log mask. (This is optional) 
 
 ```java
     DebugHelper.mapCustomLogMask(<Default Category>, <Override String>);
@@ -80,7 +80,7 @@ in certain scenarios to enhance performance of the application.
 ```	
 
 
-3. Enable/Disable the log categories.
+* Enable/Disable the log categories.
 ```java
 	DebugHelper.enableDisableLogCategory(category, isEnable);	
 ```
@@ -97,7 +97,7 @@ in certain scenarios to enhance performance of the application.
 ```
 
 
-4. Send log request to scribo
+* Send log request to scribo
 ```java
 	DebugHelper.logRequest(<TAG>, <Log Message>, <Show on ADB Logs>, <Severity>, <Category>);
 	// <TAG> and <Log Message> arguments are mandatory. 
@@ -119,12 +119,10 @@ in certain scenarios to enhance performance of the application.
 
 ```java
 	DebugHelper.logRequest(TAG, "Log message", DebugHelper.SEVERITY_LEVEL_ERROR);
-	// Severity level ERROR  
 ```
 
 ```java	
 	DebugHelper.logRequest(TAG, "Log message", DebugHelper.LOG_CATEGORY_1);
-	// Category 1 log
 ```
 
 ```java
