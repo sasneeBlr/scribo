@@ -23,14 +23,14 @@ it on the adb terminal. This is ideal to capture logs of the application once it
 The captured logs are stored in the external storage directory under the path: `<External Storage>/AppData/<application_name>/` <br>
 (For eg: /storage/emulated/0/AppData/com.sasnee.scribosample/)
 
-## Log Masks
+### Log Masks
 Scribo supports 10 categories of log masks by default. This is useful to categorize logs from individual modules of the
 application and enable/disable them individually. Scribo also supports setting custom strings to identify these default log
 categories. <br> 
 For eg: "UI Module" can be mapped to Category 1, "Display Module" can be mapped to Category 2 and so on. Once this
 is done, the logs belonging to these categories can be dynamically enabled/disabled.
 
-## ADB Logging
+### ADB Logging
 Scribo can be configured to disable printing the logs on adb terminal and instead only send it to the file. This might be needed
 in certain scenarios to enhance performance of the application.
 
@@ -41,17 +41,10 @@ in certain scenarios to enhance performance of the application.
 
 ```java
 	DebugHelper.init(Context)
-```
-OR
-```java
 	DebugHelper.init(Context, fileName)
-```
-OR
-```java
 	DebugHelper.init(Context, fileName, resetFileContents)
 ```
-
-Example:
+   Example:
 ```java
 	DebugHelper.init(getApplicationContext());
 	// Logs are captured into file "logJournal.txt". <br>
@@ -75,7 +68,7 @@ Example:
 ```java
     DebugHelper.mapCustomLogMask(<Default Category>, <Override String>);
 ```
-Example:
+  Example:
 ```java
 	DebugHelper.mapCustomLogMask(DebugHelper.LOG_CATEGORY_0, "UI Module"); 
 	// Map Category 0 to "UI Module"
@@ -92,7 +85,7 @@ Example:
 	DebugHelper.enableDisableLogCategory(category, isEnable);	
 ```
 
-Example:    
+  Example:    
 ```java
 	DebugHelper.enableDisableLogCategory(DebugHelper.LOG_CATEGORY_1, true);
 	// Enable Category 1 logs.
@@ -114,7 +107,7 @@ Example:
 	// If <Category> is not provided, it defaults to LOG_CATEGORY_GENERAL.
 ```
 
-Example:
+  Example:
 ```java
 	DebugHelper.logRequest(TAG, "Log message");
 ```
