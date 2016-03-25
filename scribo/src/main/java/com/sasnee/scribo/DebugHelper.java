@@ -20,8 +20,7 @@ public class DebugHelper {
     private static FileOutputStream mOutput = null;
     private static OutputStreamWriter mOutputStreamWriter = null;
 
-    public static String filePath =
-            Environment.getExternalStorageDirectory().getAbsolutePath().toString();
+    public static String filePath;
 
     private static final String DEFAULT_JOURNAL_FILE = "logJournal.txt";
     private static final Boolean DEFAULT_RESET_OPTION = true; // Reset file contents everytime.
@@ -99,7 +98,8 @@ public class DebugHelper {
     }
 
     private void setLogJournalFile(String fileName) {
-        filePath = filePath + "/AppData/" + mContext.getApplicationInfo().processName + "/";
+        filePath = Environment.getExternalStorageDirectory().getAbsolutePath()
+                    + "/AppData/" + mContext.getApplicationInfo().processName + "/";
         mLogJournalFile = filePath + fileName;
 
         mFile = new File(filePath);

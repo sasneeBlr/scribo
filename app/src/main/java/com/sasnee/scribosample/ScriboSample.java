@@ -15,7 +15,7 @@ public class ScriboSample extends Activity {
         setContentView(R.layout.activity_dhsample);
 
         /* Initialize the library */
-        DebugHelper.init(this);
+        DebugHelper.init(getApplicationContext());
 
         Log.i(TAG, "onResume: Journal file: " + DebugHelper.getFilePath());
 
