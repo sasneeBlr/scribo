@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/sasneeBlr/scribo'
     gitUrl = 'https://github.com/sasneeBlr/scribo.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.1.0'
 
     developerId = 'sasnee'
     developerName = 'Sasnee Technologies'
