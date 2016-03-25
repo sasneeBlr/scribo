@@ -12,7 +12,7 @@ Easily reference the library in your Android projects using this dependency in y
 
 ```gradle
 dependencies {
-    compile 'com.sasnee.scribo:scribo:1.0.0'
+    compile 'com.sasnee.scribo:scribo:1.1.0'
 }
 ```
 ---
