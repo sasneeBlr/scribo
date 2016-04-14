@@ -1,6 +1,8 @@
 # Scribo
 A simple easy-to-use debug utility which helps you capture the logs simultaneously to adb terminal as well to a file on SD Card.
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Scribo-green.svg?style=true)](https://android-arsenal.com/details/1/3431)
+
 # Table of Contents
 1. [Gradle Dependency] (https://github.com/sasneeBlr/scribo#gradle-dependency-jcenter)
 2. [Features] (https://github.com/sasneeBlr/scribo#features)
@@ -131,4 +133,3 @@ in certain scenarios to enhance performance of the application.
 ```
 
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Scribo-green.svg?style=true)](https://android-arsenal.com/details/1/3431)
