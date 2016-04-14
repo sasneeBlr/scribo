@@ -1,4 +1,5 @@
 # Scribo
+A simple easy-to-use debug utility which helps you capture the logs simultaneously to adb terminal as well to a file on SD Card.
 
 # Table of Contents
 1. [Gradle Dependency] (https://github.com/sasneeBlr/scribo#gradle-dependency-jcenter)
