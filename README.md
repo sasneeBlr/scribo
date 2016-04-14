@@ -128,3 +128,6 @@ in certain scenarios to enhance performance of the application.
 ```java
 	DebugHelper.logRequest(TAG, "Log message", false, DebugHelper.SEVERITY_LEVEL_WARN, DebugHelper.LOG_CATEGORY_1);
 ```
+
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Scribo-green.svg?style=true)](https://android-arsenal.com/details/1/3431)
