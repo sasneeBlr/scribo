@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/sasneeBlr/scribo'
     gitUrl = 'https://github.com/sasneeBlr/scribo.git'
 
-    libraryVersion = '1.1.0'
+    libraryVersion = '1.2.0'
 
     developerId = 'sasnee'
     developerName = 'Sasnee Technologies'
@@ -31,8 +31,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
     }
     buildTypes {
         release {

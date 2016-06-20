@@ -1,7 +1,10 @@
 package com.sasnee.scribo;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
@@ -12,6 +15,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class DebugHelper {
 
@@ -27,7 +31,7 @@ public class DebugHelper {
 
     private static String mLogJournalFile = filePath + DEFAULT_JOURNAL_FILE;
     private File mFile;
-    private Context mContext;
+    private static Context mContext;
 
     /* DebugHelper class is singleton */
     private static DebugHelper sInstance = null;
@@ -336,5 +340,30 @@ public class DebugHelper {
             if (state.equals(android.os.Environment.MEDIA_MOUNTED))
                 updateLogJournal(tag, logEntry, severityLevel);
         }
+    }
+
+    public static void sendLogFileByEmail() {
+        sendLogFileByEmail(null);
+    }
+
+    public static void sendLogFileByEmail(List<String> emailList) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        String currentDateTime = sdf.format(new Date());
+
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.putExtra(Intent.EXTRA_SUBJECT, "LogJournal - " + currentDateTime);
+        i.putExtra(Intent.EXTRA_TEXT, "Attached log file");
+
+        if (emailList != null && !emailList.isEmpty()) {
+            String[] emails = emailList.toArray(new String[0]);
+            i.putExtra(Intent.EXTRA_EMAIL, emails);
+        }
+        i.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + mLogJournalFile));
+        i.setType("text/plain");
+
+        DebugHelper.logRequest(TAG, "sendLogFileByEmail: Emailing " + mLogJournalFile, true, DebugHelper.SEVERITY_LEVEL_INFO);
+
+        ((Activity)mContext).startActivity(Intent.createChooser(i, "Send email"));
+
     }
 }

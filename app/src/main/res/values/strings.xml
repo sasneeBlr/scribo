@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ScriboSample</string>
+    <string name="email_logs">Email Logs</string>
 </resources>

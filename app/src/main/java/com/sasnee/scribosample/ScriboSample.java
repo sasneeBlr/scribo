@@ -3,19 +3,27 @@ package com.sasnee.scribosample;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.sasnee.scribo.DebugHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ScriboSample extends Activity {
     private static final String TAG = "ScriboSample";
+    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dhsample);
 
+        mButton = (Button)findViewById(R.id.emailbutton);
+
         /* Initialize the library */
-        DebugHelper.init(getApplicationContext());
+        DebugHelper.init(this);
 
         Log.i(TAG, "onResume: Journal file: " + DebugHelper.getFilePath());
 
@@ -76,15 +84,25 @@ public class ScriboSample extends Activity {
 
         /* Variant 10 */
         DebugHelper.logRequest(TAG, "Variant type 10",
-                                DebugHelper.SEVERITY_LEVEL_VERBOSE, DebugHelper.LOG_CATEGORY_7);
+                DebugHelper.SEVERITY_LEVEL_VERBOSE, DebugHelper.LOG_CATEGORY_7);
 
         /* Variant 11 */
         DebugHelper.logRequest(TAG, "Variant type 11", true /* Show on ADB logs */,
-                                DebugHelper.SEVERITY_LEVEL_WARN, "CATEGORY 10");
+                DebugHelper.SEVERITY_LEVEL_WARN, "CATEGORY 10");
 
         /* Variant 12 */
         DebugHelper.logRequest(TAG, "Variant type 12", true /* Show on ADB logs */,
-                                DebugHelper.SEVERITY_LEVEL_WARN, DebugHelper.LOG_CATEGORY_GENERAL);
+                DebugHelper.SEVERITY_LEVEL_WARN, DebugHelper.LOG_CATEGORY_GENERAL);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String>emailList = new ArrayList<>();
+                emailList.add("abc@XYZ.com"); // Dummy email ID. Please edit/delete this.
+                emailList.add("def@uvw.com"); // Dummy email ID. Please edit/delete this.
+                DebugHelper.sendLogFileByEmail(emailList);
+            }
+        });
 
     }
 }
