@@ -15,7 +15,7 @@ Easily reference the library in your Android projects using this dependency in y
 
 ```gradle
 dependencies {
-    compile 'com.sasnee.scribo:scribo:1.1.0'
+    compile 'com.sasnee.scribo:scribo:1.2.0'
 }
 ```
 ---
@@ -37,6 +37,9 @@ is done, the logs belonging to these categories can be dynamically enabled/disab
 Scribo can be configured to disable printing the logs on adb terminal and instead only send it to the file. This might be needed
 in certain scenarios to enhance performance of the application.
 
+### Retrieve Log File
+Starting v1.2.0, scribo provides with an option to easily retrieve the log file from the device. This new API can be used to send the log file containing the debug logs to be sent from the device. When this API is invoked, user gets a list of services that can be used to send the log file from the device. (Bluetooth, Email, ShareIT etc). If the intention is to email the log file, scribo exposes an API to prepopulate the list of people to whom the email needs to be sent.
+
 ---
 
 # Usage
@@ -49,22 +52,24 @@ in certain scenarios to enhance performance of the application.
 ```
    Example:
 ```java
-	DebugHelper.init(getApplicationContext());
+	DebugHelper.init(this);
 	// Logs are captured into file "logJournal.txt". <br>
 	// File contents are reset everytime the application is invoked.
 ```
 
 ```java
-	DebugHelper.init(getApplicationContext(), "CapturedLogs.txt");
+	DebugHelper.init(this, "CapturedLogs.txt");
 	// Logs are captured into file "CapturedLogs.txt". <br>
 	// File contents are reset everytime the application is invoked.
 ```    
 
 ```java
-	DebugHelper.init(getApplicationContext(), "CapturedLogs.txt", false); 
+	DebugHelper.init(this, "CapturedLogs.txt", false); 
 	// Logs are captured into file "CapturedLogs.txt". <br>
 	// File contents are NOT reset everytime the application is invoked.
 ```
+
+**Please note the init() function needs to be invoked from the main activity of the application.**
 
 * Override the log mask supported by scribo with a custom log mask. (This is optional) 
 
@@ -132,4 +137,16 @@ in certain scenarios to enhance performance of the application.
 	DebugHelper.logRequest(TAG, "Log message", false, DebugHelper.SEVERITY_LEVEL_WARN, DebugHelper.LOG_CATEGORY_1);
 ```
 
+* Email the log file.
 
+```java
+    DebugHelper.sendLogFileByEmail();
+    // Do not prepopulate the "To" field of the email. 
+    // Enter the email IDs manually before sending the log file.
+```
+
+```java
+    DebugHelper.sendLogFileByEmail(List<String> emailList);
+    // Prepopulate the "To" field of the email with the list of emailIDs mentioned in emailList.
+    // This saves some effort in case the log file is always meant to be sent to same list of people.
+```
