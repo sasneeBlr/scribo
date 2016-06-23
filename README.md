@@ -53,19 +53,19 @@ Starting v1.2.0, scribo provides with an option to easily retrieve the log file 
    Example:
 ```java
 	DebugHelper.init(this);
-	// Logs are captured into file "logJournal.txt". <br>
+	// Logs are captured into file "logJournal.txt".
 	// File contents are reset everytime the application is invoked.
 ```
 
 ```java
 	DebugHelper.init(this, "CapturedLogs.txt");
-	// Logs are captured into file "CapturedLogs.txt". <br>
+	// Logs are captured into file "CapturedLogs.txt".
 	// File contents are reset everytime the application is invoked.
 ```    
 
 ```java
 	DebugHelper.init(this, "CapturedLogs.txt", false); 
-	// Logs are captured into file "CapturedLogs.txt". <br>
+	// Logs are captured into file "CapturedLogs.txt".
 	// File contents are NOT reset everytime the application is invoked.
 ```
 
