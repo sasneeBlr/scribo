@@ -8,8 +8,13 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -385,5 +390,24 @@ public class DebugHelper {
         DebugHelper.logRequest(TAG, "sendLogFileByEmail: Emailing " + mLogJournalFile, true, DebugHelper.SEVERITY_LEVEL_INFO);
 
         ((Activity)mContext).startActivity(Intent.createChooser(i, "Send email"));
+    }
+
+    //Method to log the contents from the file
+    public static void printLogs(){
+        StringBuilder sb = new StringBuilder();
+        try {
+            FileInputStream fis = mContext.openFileInput(DEFAULT_JOURNAL_FILE);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("TESTING", "String builder :"+ sb.toString());
     }
 }
