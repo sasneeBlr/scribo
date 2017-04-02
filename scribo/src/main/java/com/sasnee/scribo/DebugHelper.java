@@ -393,7 +393,7 @@ public class DebugHelper {
     }
 
     //Method to log the contents from the file
-    public static void printLogs(){
+    public static void printInternalLogs(){
         StringBuilder sb = new StringBuilder();
         try {
             FileInputStream fis = mContext.openFileInput(DEFAULT_JOURNAL_FILE);
