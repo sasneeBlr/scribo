@@ -253,6 +253,27 @@ public class DebugHelper {
         }
     }
 
+    synchronized private static void updateLogJournalInternal(String tag, String logEntry,
+                                                      String severityLevel) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
+        String currentDateTime = sdf.format(new Date());
+
+        try {
+            mOutput = mContext.openFileOutput(DEFAULT_JOURNAL_FILE, mContext.MODE_APPEND);
+            mOutputStreamWriter = new OutputStreamWriter(mOutput);
+            mOutputStreamWriter.append(currentDateTime + ": " + tag + " |"
+                    + severityLevel + "|" + ": ");
+            mOutputStreamWriter.append(logEntry);
+            mOutputStreamWriter.append("\n");
+            mOutputStreamWriter.flush();
+            mOutputStreamWriter.close();
+            mOutput.close();
+        } catch (Exception e) {
+            Log.e(TAG, "updateLogJournal : Exception: " + e.getCause() + "|" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public static void logRequest(String tag, String logEntry) {
         logRequest(tag, logEntry, DEFAULT_ADB_BEHAVIOUR, DEFAULT_SEVERITY_LEVEL,
                     DEFAULT_LOG_CATEGORY_MASK);
@@ -364,6 +385,5 @@ public class DebugHelper {
         DebugHelper.logRequest(TAG, "sendLogFileByEmail: Emailing " + mLogJournalFile, true, DebugHelper.SEVERITY_LEVEL_INFO);
 
         ((Activity)mContext).startActivity(Intent.createChooser(i, "Send email"));
-
     }
 }
