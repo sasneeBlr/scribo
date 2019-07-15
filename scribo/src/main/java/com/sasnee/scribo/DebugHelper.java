@@ -8,8 +8,13 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -253,6 +258,27 @@ public class DebugHelper {
         }
     }
 
+    synchronized private static void updateLogJournalInternal(String tag, String logEntry,
+                                                      String severityLevel) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
+        String currentDateTime = sdf.format(new Date());
+
+        try {
+            mOutput = mContext.openFileOutput(DEFAULT_JOURNAL_FILE, mContext.MODE_APPEND);
+            mOutputStreamWriter = new OutputStreamWriter(mOutput);
+            mOutputStreamWriter.append(currentDateTime + ": " + tag + " |"
+                    + severityLevel + "|" + ": ");
+            mOutputStreamWriter.append(logEntry);
+            mOutputStreamWriter.append("\n");
+            mOutputStreamWriter.flush();
+            mOutputStreamWriter.close();
+            mOutput.close();
+        } catch (Exception e) {
+            Log.e(TAG, "updateLogJournal : Exception: " + e.getCause() + "|" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public static void logRequest(String tag, String logEntry) {
         logRequest(tag, logEntry, DEFAULT_ADB_BEHAVIOUR, DEFAULT_SEVERITY_LEVEL,
                     DEFAULT_LOG_CATEGORY_MASK);
@@ -364,6 +390,24 @@ public class DebugHelper {
         DebugHelper.logRequest(TAG, "sendLogFileByEmail: Emailing " + mLogJournalFile, true, DebugHelper.SEVERITY_LEVEL_INFO);
 
         ((Activity)mContext).startActivity(Intent.createChooser(i, "Send email"));
+    }
 
+    //Method to log the contents from the file
+    public static void printInternalLogs(){
+        StringBuilder sb = new StringBuilder();
+        try {
+            FileInputStream fis = mContext.openFileInput(DEFAULT_JOURNAL_FILE);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("TESTING", "String builder :"+ sb.toString());
     }
 }

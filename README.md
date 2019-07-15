@@ -107,9 +107,16 @@ Starting v1.2.0, scribo provides with an option to easily retrieve the log file 
 
 * Send log request to scribo
 ```java
+	updateLogJournalInternal(tag, logEntry, severityLevel);
+	// Change the log method from updateLogJournal(...) to updateLogJournalInternal(...) in method logRequest(...)
+	//This will log to a file in the internal memory, thereby eliminating the external storage permission
+```
+
+* Save log file to internal memory
+```java
 	DebugHelper.logRequest(<TAG>, <Log Message>, <Show on ADB Logs>, <Severity>, <Category>);
-	// <TAG> and <Log Message> arguments are mandatory. 
-	// <Show on ADB Logs>, <Severity> and <Category> are optional. 
+	// <TAG> and <Log Message> arguments are mandatory.
+	// <Show on ADB Logs>, <Severity> and <Category> are optional.
 	// If <Show on ADB Logs> is not provided, it defaults to true, i.e the log will be shown on ADB terminal.
 	// If <Severity> is not provided, it defaults to SEVERITY_LEVEL_VERBOSE.
 	// If <Category> is not provided, it defaults to LOG_CATEGORY_GENERAL.
@@ -149,4 +156,10 @@ Starting v1.2.0, scribo provides with an option to easily retrieve the log file 
     DebugHelper.sendLogFileByEmail(List<String> emailList);
     // Prepopulate the "To" field of the email with the list of emailIDs mentioned in emailList.
     // This saves some effort in case the log file is always meant to be sent to same list of people.
+```
+
+* Print the log file stored in the internal memory.
+
+```java
+    DebugHelper.printInternalLogs();
 ```
